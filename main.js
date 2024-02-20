@@ -26,6 +26,8 @@ form.addEventListener("submit", (eo) => {
 container.addEventListener("click", (eo) => {
   if (eo.target.className == "icon-trash-o") {
     eo.target.parentElement.parentElement.remove();
+  
+  saveData()
   } else if (eo.target.className == "icon-angry2") {
     eo.target.classList.add("dn");
     const addheart = `<span class="icon-heart"></span> `;
@@ -33,6 +35,7 @@ container.addEventListener("click", (eo) => {
       .getElementsByClassName("task")[0]
       .classList.add("finsh");
     eo.target.parentElement.innerHTML += addheart;
+    saveData()
   } else if (eo.target.className == "icon-heart") {
     eo.target.parentElement.parentElement
       .getElementsByClassName("task")[0]
@@ -41,13 +44,28 @@ container.addEventListener("click", (eo) => {
 
     const angry = ` <span class="icon-angry2"></span> `;
     eo.target.parentElement.innerHTML += angry;
+    saveData()
   } else if (eo.target.className == "icon-star") {
     eo.target.classList.add("orange");
 
  container.prepend(eo.target.parentElement);
+    saveData()
 } else if (eo.target.className == "icon-star orange") {
- eo.target.classList.remove("orange");
+ eo.target.classList.remove("orange");saveData()
 }
 
-
 });
+////////////try to local storage 
+function saveData(){
+  localStorage.setItem("cc",container.innerHTML)
+}
+
+function showTask(){
+container.innerHTML = localStorage.getItem("cc");
+}
+
+showTask()
+
+
+
+// localStorage.clear()
