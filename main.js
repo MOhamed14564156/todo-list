@@ -81,3 +81,30 @@ showTask()
 
 
 // localStorage.clear()
+function saveToLocal(itemKey, itemValue) {
+  localStorage.setItem(itemKey, JSON.stringify(itemValue));
+}
+
+
+var myString =` 
+            <div class="parent">
+                <span class="icon-star"></span>
+                <p lang="ar" class="task">${input.value}</p>
+                    <div class="child">
+                        <span class="icon-trash-o"></span>
+                        <span class="icon-angry2"></span>
+                    </div>
+            </div>`;
+  eo.preventDefault();
+  container.innerHTML += list;
+  input.value = "";
+  ;
+saveToLocal("myItem", myString);
+
+
+function showTask(){
+container.innerHTML = localStorage.getItem("myItem");
+}
+
+showTask()
+
