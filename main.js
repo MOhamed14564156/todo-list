@@ -66,11 +66,11 @@ container.addEventListener("click", (eo) => {
 });
 ////////////try to local storage 
 function saveData(){
-  localStorage.setItem("cc",list.innerHTML)
+  localStorage.setItem("keyv",input.innerHTML)
 }
 
 function showTask(){
-list.innerHTML = localStorage.getItem("cc");
+container.innerHTML = localStorage.getItem("keyv");
 }
 
 showTask()
