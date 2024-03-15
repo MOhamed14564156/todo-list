@@ -121,11 +121,18 @@ h3 {
 
     #container .parent p {
         font-size: 20px;
-        text-align: center;
+        /* text-align: center; */
         color: #fff;
         margin-top: 8px;
-        word-spacing: 9px;
+        /* word-spacing: 2px; */
         color: beige;
+        max-width: 152px;
+        line-height: 1.4;
+        /* background: black; */
+        text-align: center;
+        padding-left: 4px;
+        padding-right: 5px;
+        Letter-spacing: 1.2px;
     }
 }
 
