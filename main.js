@@ -2,33 +2,41 @@ const form = document.getElementById("form");
 const container = document.getElementById("container");
 const btn = document.getElementById("btn");
 const input = document.getElementById("input");
-
 // to put data in a paragraph :
 
 form.addEventListener("submit", (eo) => {
-  const list = ` 
-            <div class="parent">
-                <span class="icon-star"></span>
-                <p lang="ar" class="task">${input.value}</p>
-                    <div class="child">
-                        <span class="icon-trash-o"></span>
-                        <span class="icon-angry2"></span>
-                    </div>
-                
-            </div>`;
-  eo.preventDefault();
-  container.innerHTML += list;
-  input.value = "";
+  if (input.value !== "") {
+    eo.preventDefault();
+    const list = ` 
+              <div class="parent">
+                  <span class="icon-star"></span>
+                  <p lang="ar" class="task">${input.value}</p>
+                      <div class="child">
+                          <span class="icon-trash-o"></span>
+                          <span class="icon-angry2"></span>
+                      </div>
+              </div>`;
+    container.innerHTML += list;
+    input.value = "";
+    saveData();
+  } else {
+    alert("قم بكتابة المهام اولا");
+  }
 });
-
 //to remove any task on click in icon
 
 container.addEventListener("click", (eo) => {
   if (eo.target.className == "icon-trash-o") {
     eo.target.parentElement.parentElement.remove();
-  
-//  saveData()
-    
+    // saveData();
+    dellocal();
+    Swal.fire({
+      position: "top-center",
+      icon: "success",
+      title: "Your work has been delated",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   } else if (eo.target.className == "icon-angry2") {
     eo.target.classList.add("dn");
     const addheart = `<span class="icon-heart"></span> `;
@@ -36,75 +44,36 @@ container.addEventListener("click", (eo) => {
       .getElementsByClassName("task")[0]
       .classList.add("finsh");
     eo.target.parentElement.innerHTML += addheart;
-    
-//    saveData()
-    
+    saveData();
   } else if (eo.target.className == "icon-heart") {
     eo.target.parentElement.parentElement
       .getElementsByClassName("task")[0]
       .classList.remove("finsh");
     eo.target.classList.add("dn");
-
     const angry = ` <span class="icon-angry2"></span> `;
     eo.target.parentElement.innerHTML += angry;
-    
-//    saveData()
-    
+    saveData();
   } else if (eo.target.className == "icon-star") {
     eo.target.classList.add("orange");
-
- container.prepend(eo.target.parentElement);
-    
-//    saveData()
-    
-} else if (eo.target.className == "icon-star orange") {
- eo.target.classList.remove("orange");
-    
- //   saveData()
-}
-
+    container.prepend(eo.target.parentElement);
+    saveData();
+  } else if (eo.target.className == "icon-star orange") {
+    eo.target.classList.remove("orange");
+    saveData();
+    // take care 
+  }
 });
-////////////try to local storage 
-/*
-function saveData(){
-  localStorage.setItem("keyv",input.innerHTML)
+
+function saveData() {
+  localStorage.setItem("pp", container.innerHTML);
+}
+function showTask() {
+  container.innerHTML = localStorage.getItem("pp");
 }
 
-function showTask(){
-container.innerHTML = localStorage.getItem("keyv");
+showTask();
+function dellocal() {
+  window.localStorage.removeItem("pp");
 }
-
-showTask()
-*/
-//
-
-
-
-// localStorage.clear()
-function saveToLocal(itemKey, itemValue) {
-  localStorage.setItem(itemKey, JSON.stringify(itemValue));
-}
-
-
-var myString =` 
-            <div class="parent">
-                <span class="icon-star"></span>
-                <p lang="ar" class="task">${input.value}</p>
-                    <div class="child">
-                        <span class="icon-trash-o"></span>
-                        <span class="icon-angry2"></span>
-                    </div>
-            </div>`;
-  eo.preventDefault();
-  container.innerHTML += list;
-  input.value = "";
-  ;
-saveToLocal("myItem", myString);
-
-
-function showTask(){
-container.innerHTML = localStorage.getItem("myItem");
-}
-
-showTask()
+// ___________________________________________
 
